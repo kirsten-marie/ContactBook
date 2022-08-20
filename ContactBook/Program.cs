@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ContactBookContext>(options => 
-    options.UseInMemoryDatabase("ContactBook"));
+    options.UseSqlite("Data Source=ContactBook.db"));
 
 
 builder.Services.AddScoped<IContactService,ContactService>();
