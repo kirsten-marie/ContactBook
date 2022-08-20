@@ -2,77 +2,43 @@ using ContactBook.Models;
 
 namespace ContactBook.Services;
 
-public static class ContactService
+public class ContactService: IContactService
 {
-    static List<Contact> Contacts {get; set;}
-    static int nextContactId = 2;
-    static int nextAddressId = 2;
+    public ContactService(){ }
 
-    static ContactService()
+    public IEnumerable<Contact> GetAll()    
     {
-        Contacts = new List<Contact>{
-            new Contact{
-                Id = 1,
-                FirstName = "Kirsten",
-                LastName = "McCain",
-                Address =  new Address
-                {
-                    Id = 1,
-                    Street = "1137 Gilbert Station Ln",
-                    City = "Knoxville",
-                    State = "TN",
-                    ZipCode = "37932"
-                },
-                EmailAddress = "kirstenmccain@outlook.com",
-                PhoneNumber = "8653877802",
-                ContactFrequencyId = 1
-            },
-            new Contact{
-                Id = 2,
-                FirstName = "Minnie",
-                LastName = "Mouse",
-                Address = new Address
-                {
-                    Id = 2,
-                    Street = "123 Dev Test St",
-                    City = "Knoxville",
-                    State = "TN",
-                    ZipCode = "37932"
-                },
-                EmailAddress = "minniemouse@fake.com",
-                PhoneNumber = "8654445555",
-                ContactFrequencyId = 2
-            }
-        }; 
+        throw new NotImplementedException();
     }
 
-    public static List<Contact> GetAll() => Contacts;
 
-    public static Contact? Get(int id) => Contacts.FirstOrDefault(c => c.Id == id);
-
-    public static void Add(Contact contact)
+    public Contact? Get(int id) 
     {
-        //Todo: check if the contact exists?
-        contact.Id = ++nextContactId;
-        contact.Address.Id = ++nextAddressId;
-        Contacts.Add(contact);
+        throw new NotImplementedException();
+        //Contacts.FirstOrDefault(c => c.ContactId == id);
     }
 
-    public static void Delete(int id)
+    public void Add(Contact contact)
     {
-        var contact = Get(id);
-
-        if (contact is null) return;
-
-        Contacts.Remove(contact);
+        throw new NotImplementedException();
+        // contact.ContactId = ++nextContactId;
+        // contact.Address.AddressId = ++nextAddressId;
+        // Contacts.Add(contact);
     }
 
-    public static void Update(Contact contact)
+    public void Delete(int id)
     {
-        var index = Contacts.FindIndex(c => c.Id == contact.Id);
-        if (index == -1) return;
-
-        Contacts[index] = contact;
+        throw new NotImplementedException();
+        // var contact = Get(id);
+        // if (contact is null) return;
+        // Contacts.Remove(contact);
     }
 
+    public void Update(Contact contact)
+    {
+        throw new NotImplementedException();
+        // var index = Contacts.FindIndex(c => c.ContactId == contact.ContactId);
+        // if (index == -1) return;
+        // Contacts[index] = contact;
+    }
 }
