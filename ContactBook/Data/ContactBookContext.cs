@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using ContactBook.Models;
-
 namespace ContactBook.Data;
 
 public class ContactBookContext : DbContext

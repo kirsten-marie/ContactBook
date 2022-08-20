@@ -1,7 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using ContactBook.Data;
-using ContactBook.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

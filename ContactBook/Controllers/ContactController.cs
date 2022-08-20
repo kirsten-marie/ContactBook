@@ -1,7 +1,3 @@
-using ContactBook.Models;
-using ContactBook.Services;
-using Microsoft.AspNetCore.Mvc;
-
 namespace ContactBook.Controllers;
 
 [ApiController]
@@ -10,13 +6,11 @@ public class ContactController : ControllerBase
 {
     private readonly IContactService _contactService;
 
-    public ContactController(IContactService contactService)
-    {
-        _contactService = contactService;
-    }
-
+    public ContactController(IContactService contactService) => _contactService = contactService;
+    
     [HttpGet]
-    public ActionResult<List<Contact>> GetAll() => _contactService.GetAll().ToList();
+    public ActionResult<List<Contact>> GetAll() => 
+        _contactService.GetAll().ToList();
 
     [HttpGet("{id}")]
     public ActionResult<Contact> Get(int id)
@@ -29,7 +23,7 @@ public class ContactController : ControllerBase
     [HttpPost]
     public IActionResult Create(Contact contact)
     {
-       _contactService.Add(contact);
+       _contactService.CreateContact(contact);
        return CreatedAtAction(nameof(Create), new { id = contact.ContactId}, contact);
     }
 
@@ -57,7 +51,7 @@ public class ContactController : ControllerBase
         if (existingContact is null)
             return NotFound();
 
-        _contactService.Delete(id);
+        _contactService.DeleteContact(id);
 
         return NoContent();
     }

@@ -15,4 +15,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="ContactBook.Models"/>
+    <Using Include="ContactBook.Data"/>
+    <Using Include="ContactBook.Services"/>
+    <Using Include="ContactBook.Controllers"/>
+    <Using Include="Microsoft.AspNetCore.Mvc"/>
+    <Using Include="Microsoft.EntityFrameworkCore"/>
+    <Using Include="System.ComponentModel.DataAnnotations"/>
+  </ItemGroup>
+
 </Project>

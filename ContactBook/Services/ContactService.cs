@@ -1,44 +1,61 @@
-using ContactBook.Models;
-
 namespace ContactBook.Services;
 
 public class ContactService: IContactService
 {
-    public ContactService(){ }
+    private readonly ContactBookContext _context;
 
-    public IEnumerable<Contact> GetAll()    
-    {
-        throw new NotImplementedException();
-    }
+    public ContactService(ContactBookContext context) => _context = context;
 
+    public IEnumerable<Contact> GetAll() => _context.Contacts.AsNoTracking().ToList();
 
     public Contact? Get(int id) 
     {
-        throw new NotImplementedException();
-        //Contacts.FirstOrDefault(c => c.ContactId == id);
+        return _context.Contacts
+                .Include(c => c.Address)
+                .Include(c => c.ContactFrequency)
+                .AsNoTracking()
+                .SingleOrDefault(c => c.ContactId == id);
     }
 
-    public void Add(Contact contact)
+    public Contact CreateContact(Contact newContact)
     {
-        throw new NotImplementedException();
-        // contact.ContactId = ++nextContactId;
-        // contact.Address.AddressId = ++nextAddressId;
-        // Contacts.Add(contact);
+        _context.Contacts.Add(newContact);
+        _context.SaveChanges();
+
+        return newContact;
     }
 
-    public void Delete(int id)
+    public void UpdateAddress(int contactId, int addressId)
     {
-        throw new NotImplementedException();
-        // var contact = Get(id);
-        // if (contact is null) return;
-        // Contacts.Remove(contact);
+        var contact = _context.Contacts.Find(contactId);
+        var address = _context.Addresses.Find(addressId);
+
+        if (contact is null || address is null)
+        {
+            throw new InvalidOperationException("Contact or Address does not exist");   
+        }
+
+        contact.Address = address;
+        _context.SaveChanges();
+    }
+
+    public void DeleteContact(int contactId)
+    {
+        var contact = _context.Contacts.Find(contactId);
+
+        if (contact is null) return;
+
+        _context.Contacts.Remove(contact);
+        _context.SaveChanges();
     }
 
     public void Update(Contact contact)
     {
-        throw new NotImplementedException();
-        // var index = Contacts.FindIndex(c => c.ContactId == contact.ContactId);
-        // if (index == -1) return;
-        // Contacts[index] = contact;
+        var contactToUpdate = _context.Contacts.Find(contact.ContactId);
+
+        if (contactToUpdate is null) return;
+
+        contactToUpdate = contact;
+        _context.SaveChanges();
     }
 }
