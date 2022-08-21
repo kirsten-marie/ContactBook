@@ -10,12 +10,12 @@ public class ContactController : ControllerBase
     
     [HttpGet]
     public ActionResult<List<Contact>> GetAll() => 
-        _contactService.GetAll().ToList();
+        _contactService.GetAllContacts().ToList();
 
     [HttpGet("{id}")]
     public ActionResult<Contact> Get(int id)
     {
-        var contact = _contactService.Get(id);
+        var contact = _contactService.GetContactById(id);
 
         return contact is null ? NotFound() : contact;
     }
@@ -32,12 +32,12 @@ public class ContactController : ControllerBase
     {
         if (id != contact.ContactId) return BadRequest();
 
-        var existingContact = _contactService.Get(id);
+        var existingContact = _contactService.GetContactById(id);
 
         if (existingContact is null)
             return NotFound();
 
-        _contactService.Update(contact);
+        _contactService.UpdateContact(contact);
 
         return NoContent();
     }
@@ -46,12 +46,12 @@ public class ContactController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id) 
     {
-        var existingContact = _contactService.Get(id);
+        var existingContact = _contactService.GetContactById(id);
 
         if (existingContact is null)
             return NotFound();
 
-        _contactService.DeleteContact(id);
+        _contactService.DeleteContactById(id);
 
         return NoContent();
     }

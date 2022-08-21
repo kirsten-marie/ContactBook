@@ -6,9 +6,9 @@ public class ContactService: IContactService
 
     public ContactService(ContactBookContext context) => _context = context;
 
-    public IEnumerable<Contact> GetAll() => _context.Contacts.AsNoTracking().ToList();
+    public IEnumerable<Contact> GetAllContacts() => _context.Contacts.AsNoTracking().ToList();
 
-    public Contact? Get(int id) 
+    public Contact? GetContactById(int id) 
     {
         return _context.Contacts
                 .Include(c => c.Address)
@@ -39,7 +39,7 @@ public class ContactService: IContactService
         _context.SaveChanges();
     }
 
-    public void DeleteContact(int contactId)
+    public void DeleteContactById(int contactId)
     {
         var contact = _context.Contacts.Find(contactId);
 
@@ -49,7 +49,7 @@ public class ContactService: IContactService
         _context.SaveChanges();
     }
 
-    public void Update(Contact contact)
+    public void UpdateContact(Contact contact)
     {
         var contactToUpdate = _context.Contacts.Find(contact.ContactId);
 
