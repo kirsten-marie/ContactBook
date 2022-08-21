@@ -58,4 +58,6 @@ public class ContactService: IContactService
         contactToUpdate = contact;
         _context.SaveChanges();
     }
+
+    public IEnumerable<ContactFrequency> GetContactFrequencies() => _context.ContactFrequencies.AsNoTracking().ToList();
 }

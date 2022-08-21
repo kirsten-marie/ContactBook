@@ -10,4 +10,6 @@ public interface IContactService
 
     void DeleteContactById(int id);
     void UpdateContact(Contact contact);
+
+    IEnumerable<ContactFrequency> GetContactFrequencies();
 }
