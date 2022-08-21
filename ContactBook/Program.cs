@@ -10,7 +10,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ContactBookContext>(options => 
     options.UseSqlite("Data Source=ContactBook.db"));
 
-
 builder.Services.AddScoped<IContactService,ContactService>();
 
 var app = builder.Build();
@@ -27,5 +26,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.CreateDbIfNotExists();
 
 app.Run();
