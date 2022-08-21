@@ -14,8 +14,8 @@ namespace ContactBook.Migrations
                 {
                     AddressId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Street = table.Column<string>(type: "TEXT", nullable: false),
-                    City = table.Column<string>(type: "TEXT", nullable: false),
+                    Street = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    City = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     State = table.Column<string>(type: "TEXT", nullable: false),
                     ZipCode = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -43,12 +43,12 @@ namespace ContactBook.Migrations
                 {
                     ContactId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    AddressId = table.Column<long>(type: "INTEGER", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     EmailAddress = table.Column<string>(type: "TEXT", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    ContactFrequencyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    ContactFrequencyId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AddressId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
