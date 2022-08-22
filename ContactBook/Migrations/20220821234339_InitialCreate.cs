@@ -25,16 +25,16 @@ namespace ContactBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContactFrequencies",
+                name: "FrequencyChoices",
                 columns: table => new
                 {
-                    ContactFrequencyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FrequencyId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContactFrequencies", x => x.ContactFrequencyId);
+                    table.PrimaryKey("PK_FrequencyChoices", x => x.FrequencyId);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,10 +60,10 @@ namespace ContactBook.Migrations
                         principalColumn: "AddressId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Contacts_ContactFrequencies_ContactFrequencyId",
+                        name: "FK_Contacts_FrequencyChoices_ContactFrequencyId",
                         column: x => x.ContactFrequencyId,
-                        principalTable: "ContactFrequencies",
-                        principalColumn: "ContactFrequencyId",
+                        principalTable: "FrequencyChoices",
+                        principalColumn: "FrequencyId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -87,7 +87,7 @@ namespace ContactBook.Migrations
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "ContactFrequencies");
+                name: "FrequencyChoices");
         }
     }
 }

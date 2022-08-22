@@ -7,6 +7,6 @@ public class ContactBookContext : DbContext
 
     public DbSet<Contact> Contacts => Set<Contact>();
     public DbSet<Address> Addresses => Set<Address>();
-    public DbSet<ContactFrequency> ContactFrequencies => Set<ContactFrequency>();
+    public DbSet<Frequency> FrequencyChoices => Set<Frequency>();
 
 }

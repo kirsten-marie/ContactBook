@@ -6,16 +6,17 @@ public class ContactService: IContactService
 
     public ContactService(ContactBookContext context) => _context = context;
 
-    public IEnumerable<Contact> GetAllContacts() => _context.Contacts.AsNoTracking().ToList();
+    public IEnumerable<Contact> GetAllContacts() => _context.Contacts
+                .Include(c => c.Address)
+                .Include(c => c.ContactFrequency)
+                .AsNoTracking()
+                .ToList();
 
-    public Contact? GetContactById(int id) 
-    {
-        return _context.Contacts
+    public Contact? GetContactById(int id) => _context.Contacts
                 .Include(c => c.Address)
                 .Include(c => c.ContactFrequency)
                 .AsNoTracking()
                 .SingleOrDefault(c => c.ContactId == id);
-    }
 
     public Contact CreateContact(Contact newContact)
     {
@@ -58,6 +59,4 @@ public class ContactService: IContactService
         contactToUpdate = contact;
         _context.SaveChanges();
     }
-
-    public IEnumerable<ContactFrequency> GetContactFrequencies() => _context.ContactFrequencies.AsNoTracking().ToList();
 }

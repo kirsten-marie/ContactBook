@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ContactBookContext>(options =>
     options.UseSqlite("Data Source=ContactBook.db"));
 
 builder.Services.AddScoped<IContactService,ContactService>();
+builder.Services.AddScoped<IContactPreferenceService, ContactPreferenceService>();
 
 var app = builder.Build();
 

@@ -1,12 +1,10 @@
 namespace ContactBook.Models;
 
-public class ContactFrequency
+public class Frequency
 {
-    public ContactFrequency(){ }
+    public Frequency(){ }
 
-    public ContactFrequency(string description) => Description = description;
-
-    public int ContactFrequencyId { get; set; }
+    public int FrequencyId { get; set; }
     
     [Required]
     public string? Description { get; set; }

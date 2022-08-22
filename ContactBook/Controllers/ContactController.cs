@@ -9,7 +9,7 @@ public class ContactController : ControllerBase
     public ContactController(IContactService contactService) => _contactService = contactService;
     
     [HttpGet]
-    public ActionResult<List<Contact>> GetAll() => 
+    public ActionResult<List<Contact>> GetAllContacts() => 
         _contactService.GetAllContacts().ToList();
 
     [HttpGet("{id}")]

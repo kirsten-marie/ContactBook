@@ -4,20 +4,20 @@ public static class DbInitializer
 {
     public static void Initalize(ContactBookContext context)
     {
-        if (context.Contacts.Any() && context.ContactFrequencies.Any()) return;
+        if (context.Contacts.Any() && context.FrequencyChoices.Any()) return;
 
-            var accountContact = new ContactFrequency("Contact only about account information");
-            var marketingContact = new ContactFrequency("OK to contact with marketing information");
-            var thirdPartyMarketing = new ContactFrequency("OK to contact with third-party marketing information");
+            var accountContact = new Frequency{Description="Contact only about account information"};
+            var marketingContact = new Frequency{Description="OK to contact with marketing information"};
+            var thirdPartyMarketing = new Frequency{Description="OK to contact with third-party marketing information"};
 
-            var frequencies = new ContactFrequency[]
+            var frequencies = new Frequency[]
             {
                 accountContact,
                 marketingContact,
                 thirdPartyMarketing
             };
 
-            context.ContactFrequencies.AddRange(frequencies);
+            context.FrequencyChoices.AddRange(frequencies);
 
             var contacts = new Contact[]
             {

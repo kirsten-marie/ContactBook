@@ -16,10 +16,8 @@ public class Contact
     public string? EmailAddress { get; set; }
 
     public string? PhoneNumber { get; set; }
-    
-    [Required]
-    public ContactFrequency? ContactFrequency { get; set; }
 
-    [Required]
-    public Address? Address { get; set; }
+    public Frequency? ContactFrequency {get; set;}
+    
+    public Address? Address {get; set;}
 }
