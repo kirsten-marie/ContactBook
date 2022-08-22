@@ -25,7 +25,7 @@ public class Contact
 
     public string? PhoneNumber { get; set; }
 
-    public Frequency? ContactFrequency {get; set;}
-    
-    public Address? Address {get; set;}
+    public int ContactFrequencyId { get; set; }
+
+    public Address? Address { get; set; }
 }

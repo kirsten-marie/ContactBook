@@ -7,11 +7,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ContactBookContext>(options => 
+builder.Services.AddDbContext<ContactBookContext>(options =>
     options.UseSqlite("Data Source=ContactBook.db"));
 
-builder.Services.AddScoped<IContactService,ContactService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IContactPreferenceService, ContactPreferenceService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 var app = builder.Build();
 
@@ -29,5 +30,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.CreateDbIfNotExists();
+
 
 app.Run();
