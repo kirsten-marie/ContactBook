@@ -6,14 +6,7 @@ public static class DbInitializer
     {
         InitializeStates(context);
 
-        var choice1 = new Frequency("Contact only about account information");
-        var choice2= new Frequency("OK to contact with marketing information");
-        var choice3 = new Frequency("OK to contact with third-party marketing information");
-
-        var frequencies = new Frequency[] {choice1,choice2,choice3};
-
-        context.FrequencyChoices.AddRange(frequencies);
-        context.SaveChanges();
+        InitializeFrequencies(context);
         
             var contacts = new Contact[]
             {
@@ -21,7 +14,7 @@ public static class DbInitializer
                 {
                     EmailAddress="yelenabelova@example.com",
                     PhoneNumber="5553214567",
-                    ContactFrequency=choice1,
+                    ContactFrequency=context.FrequencyChoices.Find(1),
                     Address = new Address
                     {
                         Street="10 Cody Avenue",
@@ -34,7 +27,7 @@ public static class DbInitializer
                 {
                     EmailAddress="thorodinson@example.com",
                     PhoneNumber="5551112234",
-                    ContactFrequency=choice1, 
+                    ContactFrequency=context.FrequencyChoices.Find(1), 
                     Address = new Address
                     {
                         Street="793 Ridgeway Plaza",
@@ -47,7 +40,7 @@ public static class DbInitializer
                 {
                     EmailAddress="captainamerica@example.com",
                     PhoneNumber="5553214568",
-                    ContactFrequency=choice2,
+                    ContactFrequency=context.FrequencyChoices.Find(2),
                     Address =  new Address
                     {
                         Street="01153 Farmco Crossing",
@@ -60,7 +53,7 @@ public static class DbInitializer
                 {
                     EmailAddress="hawkeye@example.com",
                     PhoneNumber="5554561122", 
-                    ContactFrequency=choice3,
+                    ContactFrequency=context.FrequencyChoices.Find(3),
                     Address =  new Address
                     {
                         Street="1562 North Lane",
@@ -73,7 +66,7 @@ public static class DbInitializer
                 {
                     EmailAddress="starlord@example.com",
                     PhoneNumber="5554561128", 
-                    ContactFrequency=choice3,
+                    ContactFrequency=context.FrequencyChoices.Find(3),
                     Address = new Address
                     {
                         Street="7481 Hallows Drive",
@@ -86,7 +79,7 @@ public static class DbInitializer
                 { 
                     EmailAddress="captainmarvel@example.com",
                     PhoneNumber="5558741234",
-                    ContactFrequency=choice1,
+                    ContactFrequency=context.FrequencyChoices.Find(1),
                     Address = new Address
                     {
                         Street="87056 Carberry Circle",
@@ -99,7 +92,7 @@ public static class DbInitializer
                 { 
                     EmailAddress="spiderman@example.com",
                     PhoneNumber="5559876543", 
-                    ContactFrequency=choice2,
+                    ContactFrequency=context.FrequencyChoices.Find(2),
                     Address = new Address
                     {
                         Street="1 Menomonie Trail",
@@ -112,7 +105,7 @@ public static class DbInitializer
                 { 
                     EmailAddress="kbishop@example.com",
                     PhoneNumber="5552981648", 
-                    ContactFrequency=choice2,
+                    ContactFrequency=context.FrequencyChoices.Find(2),
                     Address = new Address
                     {
                         Street="4 Lyons Place",
@@ -125,7 +118,7 @@ public static class DbInitializer
                 { 
                     EmailAddress="hopepym@example.com",
                     PhoneNumber="5558195452", 
-                    ContactFrequency=choice3,
+                    ContactFrequency=context.FrequencyChoices.Find(3),
                     Address = new Address
                     {
                         Street="51 Prairieview Pass",
@@ -138,7 +131,7 @@ public static class DbInitializer
                 { 
                     EmailAddress="hulk@example.com",
                     PhoneNumber="5556153824", 
-                    ContactFrequency=choice3,
+                    ContactFrequency=context.FrequencyChoices.Find(3),
                     Address =  new Address
                     {
                         Street="639 Willow Way",
@@ -152,6 +145,21 @@ public static class DbInitializer
             context.Contacts.AddRange(contacts);
 
             context.SaveChanges();
+    }
+
+    private static void InitializeFrequencies(ContactBookContext context)
+    {
+        if (context.FrequencyChoices.Any()) return;
+
+        var frequencies = new Frequency[] 
+        {
+            new Frequency{FrequencyId = 1, Description = "Contact only about account information"},
+            new Frequency{FrequencyId = 2, Description = "OK to contact with marketing information"},
+            new Frequency{FrequencyId = 3, Description= "OK to contact with third-party marketing information"},
+        };
+
+        context.FrequencyChoices.AddRange(frequencies);
+        context.SaveChanges();
     }
 
    private static void InitializeStates(ContactBookContext context)

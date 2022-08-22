@@ -9,10 +9,12 @@ public class AddressController : ControllerBase
     public AddressController(IAddressService addressService) => _addressService = addressService;
 
     [HttpGet]
+    [ActionName("GetAllAddresses")]
     public ActionResult<List<Address>> GetAllAddresses() => 
         _addressService.GetAddresses().ToList();
 
-    [HttpGet]
+    [HttpGet("states")]
+    [ActionName("GetAllStates")]
     public ActionResult<List<State>> GetAllStates() => 
         _addressService.GetStates().ToList();
 
