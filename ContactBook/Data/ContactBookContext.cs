@@ -10,4 +10,8 @@ public class ContactBookContext : DbContext
     public DbSet<Frequency> FrequencyChoices => Set<Frequency>();
     public DbSet<State> States => Set<State>();
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<State>().HasKey(key => key.StateAbbreviation);
+    }
 }
