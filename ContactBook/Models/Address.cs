@@ -13,7 +13,7 @@ public class Address
     public string? City { get; set; }
 
     [Required]
-    public string? State { get; set; }
+    public State? State { get; set; }
 
     [Required]
     public string? ZipCode { get; set; }

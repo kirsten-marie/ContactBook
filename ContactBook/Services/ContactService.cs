@@ -3,8 +3,13 @@ namespace ContactBook.Services;
 public class ContactService: IContactService
 {
     private readonly ContactBookContext _context;
+    private readonly IAddressService _addressService;
 
-    public ContactService(ContactBookContext context) => _context = context;
+    public ContactService(ContactBookContext context, IAddressService addressService)
+    {
+        _context = context; 
+        _addressService = addressService;
+    } 
 
     public IEnumerable<Contact> GetAllContacts() => _context.Contacts
                 .Include(c => c.Address)
@@ -24,6 +29,20 @@ public class ContactService: IContactService
         _context.SaveChanges();
 
         return newContact;
+    }
+
+    public void SetNewAddress(int contactId, Address address)
+    {
+        var contact = _context.Contacts.Find(contactId);
+        var newAddress = _addressService.CreateAddress(address);
+
+        if (contact is null || address is null)
+        {
+            throw new InvalidOperationException("Contact or Address does not exist");   
+        }
+
+        contact.Address = newAddress;
+        _context.SaveChanges();
     }
 
     public void UpdateAddress(int contactId, int addressId)

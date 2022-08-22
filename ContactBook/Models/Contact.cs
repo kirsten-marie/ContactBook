@@ -2,6 +2,14 @@ namespace ContactBook.Models;
 
 public class Contact
 {
+    public Contact() { }
+
+    public Contact(string firstName, string lastName)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+    }
+
     public long ContactId { get; set; }
 
     [Required]
