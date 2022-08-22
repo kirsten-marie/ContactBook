@@ -12,6 +12,6 @@ public class ContactBookContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<State>().HasKey(key => key.StateAbbreviation);
+        modelBuilder.Entity<State>().HasKey(key => key.Abbreviation);
     }
 }
