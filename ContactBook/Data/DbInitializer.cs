@@ -1,168 +1,190 @@
 namespace ContactBook.Data;
-
 public static class DbInitializer
 {
-    public static void Initalize(ContactBookContext context)
+    public static void Initalize(AppDbContext context)
     {
         InitializeStates(context);
 
         InitializeFrequencies(context);
-        
-            var contacts = new Contact[]
-            {
-                new Contact("Yelena", "Belova")
-                {
-                    EmailAddress="yelenabelova@example.com",
-                    PhoneNumber="5553214567",
-                    ContactFrequency=context.FrequencyChoices.Find(1),
-                    Address = new Address
-                    {
-                        Street="10 Cody Avenue",
-                        City="Fresno",
-                        State=context.States.Find("CA"), 
-                        ZipCode="93794"
-                    }
-                },
-                new Contact("Thor","Odinson")
-                {
-                    EmailAddress="thorodinson@example.com",
-                    PhoneNumber="5551112234",
-                    ContactFrequency=context.FrequencyChoices.Find(1), 
-                    Address = new Address
-                    {
-                        Street="793 Ridgeway Plaza",
-                        City="Tulsa",
-                        State=context.States.Find("OK"),
-                        ZipCode="74184"
-                    }
-                },
-                new Contact("Steve","Rogers")
-                {
-                    EmailAddress="captainamerica@example.com",
-                    PhoneNumber="5553214568",
-                    ContactFrequency=context.FrequencyChoices.Find(2),
-                    Address =  new Address
-                    {
-                        Street="01153 Farmco Crossing",
-                        City="Tacoma",
-                        State=context.States.Find("WA"),
-                        ZipCode="98447"
-                    }
-                },
-                new Contact("Clint","Barton")
-                {
-                    EmailAddress="hawkeye@example.com",
-                    PhoneNumber="5554561122", 
-                    ContactFrequency=context.FrequencyChoices.Find(3),
-                    Address =  new Address
-                    {
-                        Street="1562 North Lane",
-                        City="Cleveland",
-                        State=context.States.Find("OH"),
-                        ZipCode="44177"
-                    }
-                },
-                new Contact("Peter","Quill")
-                {
-                    EmailAddress="starlord@example.com",
-                    PhoneNumber="5554561128", 
-                    ContactFrequency=context.FrequencyChoices.Find(3),
-                    Address = new Address
-                    {
-                        Street="7481 Hallows Drive",
-                        City="South Bend",
-                        State=context.States.Find("IN"),
-                        ZipCode="46634"
-                    }
-                },
-                new Contact("Carol","Danvers")
-                { 
-                    EmailAddress="captainmarvel@example.com",
-                    PhoneNumber="5558741234",
-                    ContactFrequency=context.FrequencyChoices.Find(1),
-                    Address = new Address
-                    {
-                        Street="87056 Carberry Circle",
-                        City="Arlington",
-                        State=context.States.Find("VA"),
-                        ZipCode="22205"
-                    }
-                },
-                new Contact("Peter","Parker")
-                { 
-                    EmailAddress="spiderman@example.com",
-                    PhoneNumber="5559876543", 
-                    ContactFrequency=context.FrequencyChoices.Find(2),
-                    Address = new Address
-                    {
-                        Street="1 Menomonie Trail",
-                        City="New Orleans",
-                        State=context.States.Find("LA"),
-                        ZipCode="70124"
-                    } 
-                },
-                new Contact("Kate","Bishop")
-                { 
-                    EmailAddress="kbishop@example.com",
-                    PhoneNumber="5552981648", 
-                    ContactFrequency=context.FrequencyChoices.Find(2),
-                    Address = new Address
-                    {
-                        Street="4 Lyons Place",
-                        City="Hartford",
-                        State=context.States.Find("CT"),
-                        ZipCode="06105"
-                    }
-                },
-                new Contact("Hope","Pym")
-                { 
-                    EmailAddress="hopepym@example.com",
-                    PhoneNumber="5558195452", 
-                    ContactFrequency=context.FrequencyChoices.Find(3),
-                    Address = new Address
-                    {
-                        Street="51 Prairieview Pass",
-                        City="Dallas",
-                        State=context.States.Find("TX"),
-                        ZipCode="75277"
-                    }
-                },
-                new Contact("Bruce","Banner")
-                { 
-                    EmailAddress="hulk@example.com",
-                    PhoneNumber="5556153824", 
-                    ContactFrequency=context.FrequencyChoices.Find(3),
-                    Address =  new Address
-                    {
-                        Street="639 Willow Way",
-                        City="Knoxville",
-                        State=context.States.Find("TN"),
-                        ZipCode="37919"
-                    }
-                }     
-            };
 
-            context.Contacts.AddRange(contacts);
+        if(context.Contacts.Any()) return;
 
-            context.SaveChanges();
+        var contacts = new Contact[]
+        {
+                new Contact
+                {
+                    FirstName = "Yelena", 
+                    LastName = "Belova",
+                    EmailAddress = "yelenabelova@example.com",
+                    PhoneNumber = "5553214567",
+                    ContactFrequency = context.FrequencyChoices.Find(1),
+                    Address = new Address
+                    {
+                        Street = "10 Cody Avenue",
+                        City = "Fresno",
+                        State = context.States.Find("CA"),
+                        ZipCode = "93794"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Thor",
+                    LastName = "Odinson",
+                    EmailAddress = "thorodinson@example.com",
+                    PhoneNumber = "5551112234",
+                    ContactFrequency = context.FrequencyChoices.Find(1),
+                    Address = new Address
+                    {
+                        Street = "793 Ridgeway Plaza",
+                        City = "Tulsa",
+                        State = context.States.Find("OK"),
+                        ZipCode = "74184"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Steve",
+                    LastName = "Rogers",
+                    EmailAddress = "captainamerica@example.com",
+                    PhoneNumber = "5553214568",
+                    ContactFrequency = context.FrequencyChoices.Find(2),
+                    Address  =   new Address
+                    {
+                        Street = "01153 Farmco Crossing",
+                        City = "Tacoma",
+                        State = context.States.Find("WA"),
+                        ZipCode = "98447"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Clint",
+                    LastName = "Barton",
+                    EmailAddress = "hawkeye@example.com",
+                    PhoneNumber = "5554561122",
+                    ContactFrequency = context.FrequencyChoices.Find(3),
+                    Address  =   new Address
+                    {
+                        Street = "1562 North Lane",
+                        City = "Cleveland",
+                        State = context.States.Find("OH"),
+                        ZipCode = "44177"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Peter",
+                    LastName = "Quill",
+                    EmailAddress = "starlord@example.com",
+                    PhoneNumber = "5554561128",
+                    ContactFrequency = context.FrequencyChoices.Find(3),
+                    Address = new Address
+                    {
+                        Street = "7481 Hallows Drive",
+                        City = "South Bend",
+                        State = context.States.Find("IN"),
+                        ZipCode = "46634"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Carol",
+                    LastName = "Danvers",
+                    EmailAddress = "captainmarvel@example.com",
+                    PhoneNumber = "5558741234",
+                    ContactFrequency = context.FrequencyChoices.Find(1),
+                    Address = new Address
+                    {
+                        Street = "87056 Carberry Circle",
+                        City = "Arlington",
+                        State = context.States.Find("VA"),
+                        ZipCode = "22205"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Peter",
+                    LastName = "Parker",
+                    EmailAddress = "spiderman@example.com",
+                    PhoneNumber = "5559876543",
+                    ContactFrequency = context.FrequencyChoices.Find(2),
+                    Address = new Address
+                    {
+                        Street = "1 Menomonie Trail",
+                        City = "New Orleans",
+                        State = context.States.Find("LA"),
+                        ZipCode = "70124"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Kate",
+                    LastName = "Bishop",
+                    EmailAddress = "kbishop@example.com",
+                    PhoneNumber = "5552981648",
+                    ContactFrequency = context.FrequencyChoices.Find(2),
+                    Address = new Address
+                    {
+                        Street = "4 Lyons Place",
+                        City = "Hartford",
+                        State = context.States.Find("CT"),
+                        ZipCode = "06105"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Hope",
+                    LastName = "Pym",
+                    EmailAddress = "hopepym@example.com",
+                    PhoneNumber = "5558195452",
+                    ContactFrequency = context.FrequencyChoices.Find(3),
+                    Address = new Address
+                    {
+                        Street = "51 Prairieview Pass",
+                        City = "Dallas",
+                        State = context.States.Find("TX"),
+                        ZipCode = "75277"
+                    }
+                },
+                new Contact
+                {
+                    FirstName = "Bruce",
+                    LastName = "Banner",
+                    EmailAddress = "hulk@example.com",
+                    PhoneNumber = "5556153824",
+                    ContactFrequency = context.FrequencyChoices.Find(3),
+                    Address = new Address
+                    {
+                        Street = "639 Willow Way",
+                        City = "Knoxville",
+                        State = context.States.Find("TN"),
+                        ZipCode = "37919"
+                    }
+                }
+        };
+
+        context.Contacts.AddRange(contacts);
+
+        context.SaveChanges();
     }
 
-    private static void InitializeFrequencies(ContactBookContext context)
+
+    private static void InitializeFrequencies(AppDbContext context)
     {
         if (context.FrequencyChoices.Any()) return;
 
-        var frequencies = new Frequency[] 
+        var frequencies = new Frequency[]
         {
-            new Frequency{FrequencyId = 1, Description = "Contact only about account information"},
-            new Frequency{FrequencyId = 2, Description = "OK to contact with marketing information"},
-            new Frequency{FrequencyId = 3, Description= "OK to contact with third-party marketing information"},
+            new Frequency{FrequencyId = 1, ContactFrequency = "Contact only about account information"},
+            new Frequency{FrequencyId = 2, ContactFrequency = "OK to contact with marketing information"},
+            new Frequency{FrequencyId = 3, ContactFrequency= "OK to contact with third-party marketing information"},
         };
 
         context.FrequencyChoices.AddRange(frequencies);
         context.SaveChanges();
     }
 
-   private static void InitializeStates(ContactBookContext context)
+    private static void InitializeStates(AppDbContext context)
     {
         if (context.States.Any()) return;
 
@@ -216,12 +238,12 @@ public static class DbInitializer
             new State{Abbreviation="VT",Name="Vermont"},
             new State{Abbreviation="VA",Name="Virginia"},
             new State{Abbreviation="WA",Name="Washington"},
-            new State{Abbreviation="WV",Name="Wisconsin"},
+            new State{Abbreviation="WV",Name="West Virginia"},
+            new State{Abbreviation="WI",Name="Wisconsin"},
             new State{Abbreviation="WY",Name="Wyoming"}
         };
 
         context.States.AddRange(states);
         context.SaveChanges();
     }
-
 }

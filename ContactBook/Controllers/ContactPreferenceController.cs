@@ -1,7 +1,7 @@
 namespace ContactBook.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ContactPreferenceController : ControllerBase
 {
     private readonly IContactPreferenceService _contactOptionsService;

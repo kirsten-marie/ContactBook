@@ -1,8 +1,8 @@
 namespace ContactBook.Data;
 
-public class ContactBookContext : DbContext
+public class AppDbContext : DbContext
 {
-    public ContactBookContext(DbContextOptions<ContactBookContext> options) : base(options) 
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
     { }
 
     public DbSet<Contact> Contacts => Set<Contact>();

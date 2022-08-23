@@ -1,13 +1,13 @@
 namespace ContactBook.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ContactController : ControllerBase
 {
     private readonly IContactService _contactService;
 
     public ContactController(IContactService contactService) => _contactService = contactService;
-    
+
     [HttpGet]
     public ActionResult<List<Contact>> GetAllContacts() => 
         _contactService.GetAllContacts().ToList();
@@ -23,12 +23,12 @@ public class ContactController : ControllerBase
     [HttpPost]
     public IActionResult Create(Contact contact)
     {
-       _contactService.CreateContact(contact);
-       return CreatedAtAction(nameof(Create), new { id = contact.ContactId}, contact);
+        _contactService.CreateContact(contact);
+        return CreatedAtAction(nameof(Create), new { id = contact.ContactId }, contact);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Contact contact) 
+    public IActionResult Update(int id, Contact contact)
     {
         if (id != contact.ContactId) return BadRequest();
 
@@ -44,7 +44,7 @@ public class ContactController : ControllerBase
 
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id) 
+    public IActionResult Delete(int id)
     {
         var existingContact = _contactService.GetContactById(id);
 

@@ -2,9 +2,9 @@ namespace ContactBook.Services;
 
 public class ContactPreferenceService : IContactPreferenceService
 {
-    private readonly ContactBookContext _context;
+    private readonly AppDbContext _context;
 
-    public ContactPreferenceService(ContactBookContext context) => _context = context;
+    public ContactPreferenceService(AppDbContext context) => _context = context;
 
     public IEnumerable<Frequency> GetFrequencyChoices() => 
         _context.FrequencyChoices.AsNoTracking().ToList();

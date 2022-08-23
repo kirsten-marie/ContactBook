@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ContactBookContext>(options => 
+builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseSqlite("Data Source=ContactBook.db"));
 
 builder.Services.AddScoped<IAddressService, AddressService>();
@@ -22,6 +22,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.CreateDbIfNotExists();
 }
 
 app.UseHttpsRedirection();
@@ -29,7 +30,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.CreateDbIfNotExists();
 
 app.Run();
