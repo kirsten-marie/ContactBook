@@ -5,7 +5,7 @@ export class Contact {
     lastName: string;
     address: Address;
     phone: string;
-    contactFrequency: string;
+    contactFrequency: number;
 
     constructor() {
         //initialize address object
