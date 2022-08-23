@@ -2,10 +2,10 @@ namespace ContactBook.Services;
 
 public class ContactService: IContactService
 {
-    private readonly ContactBookContext _context;
+    private readonly AppDbContext _context;
     private readonly IAddressService _addressService;
 
-    public ContactService(ContactBookContext context, IAddressService addressService)
+    public ContactService(AppDbContext context, IAddressService addressService)
     {
         _context = context; 
         _addressService = addressService;

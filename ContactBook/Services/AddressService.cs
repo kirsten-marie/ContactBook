@@ -2,9 +2,9 @@ namespace ContactBook.Services;
 
 public class AddressService : IAddressService
 {
-    private readonly ContactBookContext _context;
+    private readonly AppDbContext _context;
 
-    public AddressService(ContactBookContext context) => _context = context;
+    public AddressService(AppDbContext context) => _context = context;
 
     public IEnumerable<State> GetStates() => _context.States.AsNoTracking().ToArray();
 

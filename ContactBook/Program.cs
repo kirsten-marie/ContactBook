@@ -1,18 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ContactBookContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=ContactBook.db"));
 
+builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IContactPreferenceService, ContactPreferenceService>();
-builder.Services.AddScoped<IAddressService, AddressService>();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -21,15 +19,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.CreateDbIfNotExists();
 }
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.CreateDbIfNotExists();
-
 
 app.Run();

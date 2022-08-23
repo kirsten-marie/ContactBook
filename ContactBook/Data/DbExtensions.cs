@@ -6,7 +6,7 @@ public static class DbExtensions
     {
         using var scope = host.Services.CreateScope();
         var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<ContactBookContext>();
+        var context = services.GetRequiredService<AppDbContext>();
         context.Database.EnsureCreated();
         DbInitializer.Initalize(context);
     }
