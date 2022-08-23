@@ -7,13 +7,13 @@ public static class DbInitializer
 
         InitializeFrequencies(context);
 
-        if(context.Contacts.Any()) return;
+        if (context.Contacts.Any()) return;
 
         var contacts = new Contact[]
         {
                 new Contact
                 {
-                    FirstName = "Yelena", 
+                    FirstName = "Yelena",
                     LastName = "Belova",
                     EmailAddress = "yelenabelova@example.com",
                     PhoneNumber = "5553214567",

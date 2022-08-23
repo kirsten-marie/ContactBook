@@ -2,14 +2,6 @@ namespace ContactBook.Models;
 
 public class Contact
 {
-    public Contact() { }
-
-    public Contact(string firstName, string lastName)
-    {
-        FirstName = firstName;
-        LastName = lastName;
-    }
-
     public long ContactId { get; set; }
 
     [Required]
@@ -25,7 +17,7 @@ public class Contact
 
     public string? PhoneNumber { get; set; }
 
-    public int ContactFrequencyId { get; set; }
+    public Frequency ContactFrequency { get; set; }
 
     public Address? Address { get; set; }
 }
