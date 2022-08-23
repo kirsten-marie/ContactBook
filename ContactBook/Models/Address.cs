@@ -2,9 +2,19 @@ namespace ContactBook.Models;
 
 public class Address
 {
-    public long Id { get; set; }
-    public string Street { get; set; }
-    public string City { get; set; }
-    public string State { get; set; }
-    public string ZipCode { get; set; }
+    public long AddressId { get; set; }
+
+    [Required]
+    [MaxLength(100)]
+    public string? Street { get; set; }
+
+    [Required]
+    [MaxLength(50)]
+    public string? City { get; set; }
+
+    [Required]
+    public State? State { get; set; }
+
+    [Required]
+    public string? ZipCode { get; set; }
 }

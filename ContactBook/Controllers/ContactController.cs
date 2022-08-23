@@ -1,22 +1,21 @@
-using ContactBook.Models;
-using ContactBook.Services;
-using Microsoft.AspNetCore.Mvc;
-
 namespace ContactBook.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ContactController : ControllerBase
 {
-    public ContactController(){ }
+    private readonly IContactService _contactService;
+
+    public ContactController(IContactService contactService) => _contactService = contactService;
 
     [HttpGet]
-    public ActionResult<List<Contact>> GetAll() => ContactService.GetAll();
+    public ActionResult<List<Contact>> GetAllContacts() => 
+        _contactService.GetAllContacts().ToList();
 
     [HttpGet("{id}")]
     public ActionResult<Contact> Get(int id)
     {
-        var contact = ContactService.Get(id);
+        var contact = _contactService.GetContactById(id);
 
         return contact is null ? NotFound() : contact;
     }
@@ -24,35 +23,35 @@ public class ContactController : ControllerBase
     [HttpPost]
     public IActionResult Create(Contact contact)
     {
-       ContactService.Add(contact);
-       return CreatedAtAction(nameof(Create), new { id = contact.Id}, contact);
+        _contactService.CreateContact(contact);
+        return CreatedAtAction(nameof(Create), new { id = contact.ContactId }, contact);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Contact contact) 
+    public IActionResult Update(int id, Contact contact)
     {
-        if (id != contact.Id) return BadRequest();
+        if (id != contact.ContactId) return BadRequest();
 
-        var existingContact = ContactService.Get(id);
+        var existingContact = _contactService.GetContactById(id);
 
         if (existingContact is null)
             return NotFound();
 
-        ContactService.Update(contact);
+        _contactService.UpdateContact(contact);
 
         return NoContent();
     }
 
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id) 
+    public IActionResult Delete(int id)
     {
-        var existingContact = ContactService.Get(id);
+        var existingContact = _contactService.GetContactById(id);
 
         if (existingContact is null)
             return NotFound();
 
-        ContactService.Delete(id);
+        _contactService.DeleteContactById(id);
 
         return NoContent();
     }

@@ -1,78 +1,81 @@
-using ContactBook.Models;
-
 namespace ContactBook.Services;
 
-public static class ContactService
+public class ContactService: IContactService
 {
-    static List<Contact> Contacts {get; set;}
-    static int nextContactId = 2;
-    static int nextAddressId = 2;
+    private readonly AppDbContext _context;
+    private readonly IAddressService _addressService;
 
-    static ContactService()
+    public ContactService(AppDbContext context, IAddressService addressService)
     {
-        Contacts = new List<Contact>{
-            new Contact{
-                Id = 1,
-                FirstName = "Kirsten",
-                LastName = "McCain",
-                Address =  new Address
-                {
-                    Id = 1,
-                    Street = "1137 Gilbert Station Ln",
-                    City = "Knoxville",
-                    State = "TN",
-                    ZipCode = "37932"
-                },
-                EmailAddress = "kirstenmccain@outlook.com",
-                PhoneNumber = "8653877802",
-                ContactFrequencyId = 1
-            },
-            new Contact{
-                Id = 2,
-                FirstName = "Minnie",
-                LastName = "Mouse",
-                Address = new Address
-                {
-                    Id = 2,
-                    Street = "123 Dev Test St",
-                    City = "Knoxville",
-                    State = "TN",
-                    ZipCode = "37932"
-                },
-                EmailAddress = "minniemouse@fake.com",
-                PhoneNumber = "8654445555",
-                ContactFrequencyId = 2
-            }
-        }; 
+        _context = context; 
+        _addressService = addressService;
+    } 
+
+    public IEnumerable<Contact> GetAllContacts() => _context.Contacts
+                .Include(c => c.Address)
+                .Include(c => c.ContactFrequency)
+                .AsNoTracking()
+                .ToList();
+
+    public Contact? GetContactById(int id) => _context.Contacts
+                .Include(c => c.Address)
+                .Include(c => c.ContactFrequency)
+                .AsNoTracking()
+                .SingleOrDefault(c => c.ContactId == id);
+
+    public Contact CreateContact(Contact newContact)
+    {
+        _context.Contacts.Add(newContact);
+        _context.SaveChanges();
+
+        return newContact;
     }
 
-    public static List<Contact> GetAll() => Contacts;
-
-    public static Contact? Get(int id) => Contacts.FirstOrDefault(c => c.Id == id);
-
-    public static void Add(Contact contact)
+    public void SetNewAddress(int contactId, Address address)
     {
-        //Todo: check if the contact exists?
-        contact.Id = ++nextContactId;
-        contact.Address.Id = ++nextAddressId;
-        Contacts.Add(contact);
+        var contact = _context.Contacts.Find(contactId);
+        var newAddress = _addressService.CreateAddress(address);
+
+        if (contact is null || address is null)
+        {
+            throw new InvalidOperationException("Contact or Address does not exist");   
+        }
+
+        contact.Address = newAddress;
+        _context.SaveChanges();
     }
 
-    public static void Delete(int id)
+    public void UpdateAddress(int contactId, int addressId)
     {
-        var contact = Get(id);
+        var contact = _context.Contacts.Find(contactId);
+        var address = _context.Addresses.Find(addressId);
+
+        if (contact is null || address is null)
+        {
+            throw new InvalidOperationException("Contact or Address does not exist");   
+        }
+
+        contact.Address = address;
+        _context.SaveChanges();
+    }
+
+    public void DeleteContactById(int contactId)
+    {
+        var contact = _context.Contacts.Find(contactId);
 
         if (contact is null) return;
 
-        Contacts.Remove(contact);
+        _context.Contacts.Remove(contact);
+        _context.SaveChanges();
     }
 
-    public static void Update(Contact contact)
+    public void UpdateContact(Contact contact)
     {
-        var index = Contacts.FindIndex(c => c.Id == contact.Id);
-        if (index == -1) return;
+        var contactToUpdate = _context.Contacts.Find(contact.ContactId);
 
-        Contacts[index] = contact;
+        if (contactToUpdate is null) return;
+
+        contactToUpdate = contact;
+        _context.SaveChanges();
     }
-
 }
